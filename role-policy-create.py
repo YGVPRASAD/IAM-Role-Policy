@@ -71,6 +71,6 @@ for opt, arg in opts:
                     RoleName=rpart, PolicyArn=l[i])
             i = i + 1
             #except ClientError as error:
-            if ClientError is error:
+            if ClientError as error:
                 if error.response['Error']['Code'] == 'EntityAlreadyExists':
                     print('Role already exists... hence exiting from here')
