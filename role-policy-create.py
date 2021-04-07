@@ -66,11 +66,10 @@ for opt, arg in opts:
                     RoleName = rpart,
                     AssumeRolePolicyDocument = assume_role_document
             )
-
-            attach_response = client.attach_role_policy(
+            try:
+                attach_response = client.attach_role_policy(
                     RoleName=rpart, PolicyArn=l[i])
-            i = i + 1
-            #except ClientError as error:
-            if ClientError as error:
+                i = i + 1
+            except ClientError as error:
                 if error.response['Error']['Code'] == 'EntityAlreadyExists':
                     print('Role already exists... hence exiting from here')
