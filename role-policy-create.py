@@ -55,13 +55,14 @@ for opt, arg in opts:
         i = 0
         for rpart in role_name.split(","):
             print(rpart)
+            
             f = open(rpart+'.json', 'r')
+            rvalue = f.read()
+            #print(rvalue)
+            assume_role_document = json.loads(json.dumps(rvalue))
+            #print(assume_role_document)
             try:
                 
-                rvalue = f.read()
-                #print(rvalue)
-                assume_role_document = json.loads(json.dumps(rvalue))
-                #print(assume_role_document)
                 client = boto3.client('iam')
                 create_role_response = client.create_role(
                     RoleName = rpart,
