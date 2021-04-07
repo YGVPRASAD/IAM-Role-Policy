@@ -61,17 +61,15 @@ for opt, arg in opts:
             #print(rvalue)
             assume_role_document = json.loads(json.dumps(rvalue))
             #print(assume_role_document)
-            try:
-                
-                client = boto3.client('iam')
-                create_role_response = client.create_role(
+            client = boto3.client('iam')
+            create_role_response = client.create_role(
                     RoleName = rpart,
                     AssumeRolePolicyDocument = assume_role_document
-                )
+            )
 
-                attach_response = client.attach_role_policy(
+            attach_response = client.attach_role_policy(
                     RoleName=rpart, PolicyArn=l[i])
-                i = i + 1
-            except ClientError as error:
-                if error.response['Error']['Code'] == 'EntityAlreadyExists':
-                    print('Role already exists... hence exiting from here')
+            i = i + 1
+            #except ClientError as error:
+            if error.response['Error']['Code'] == 'EntityAlreadyExists':
+                print('Role already exists... hence exiting from here')
